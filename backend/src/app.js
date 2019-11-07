@@ -30,11 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 // MongoDB database
+const uri = process.env.ATLAS_URI;
 
-const dbRoute =
-  "mongodb+srv://admin:admin@cluster0-ezbwq.mongodb.net/test?retryWrites=true&w=majority";
-
-mongoose.connect(dbRoute, {
+mongoose.connect(uri, {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useNewUrlParser: true
