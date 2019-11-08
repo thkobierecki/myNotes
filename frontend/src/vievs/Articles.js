@@ -31,7 +31,7 @@ Articles.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
-      twitterName: PropTypes.string.isRequired,
+
       created: PropTypes.string.isRequired
     })
   )

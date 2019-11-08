@@ -22,11 +22,11 @@ const Root = () => (
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/" render={() => <Redirect to="/notes" />} />
           <Route exact path="/notes" component={Note} />
-          <Route path="/notes/:id" component={DetailsPage} />
+          <Route path="/notes/details/:id" component={DetailsPage} />
           <Route exact path="/twitters" component={Twitters} />
-          <Route path="/twitters/:id" component={DetailsPage} />
+          <Route path="/twitters/details/:id" component={DetailsPage} />
           <Route exact path="/articles" component={Articles} />
-          <Route path="/articles/:id" component={DetailsPage} />
+          <Route path="/articles/details/:id" component={DetailsPage} />
         </Switch>
       </MainTemplate>
     </BrowserRouter>
