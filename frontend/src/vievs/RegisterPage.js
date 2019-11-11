@@ -1,12 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Formik, Form } from 'formik';
-import AuthTemplate from '../templates/AuthTemplate';
-import { Link } from 'react-router-dom';
-import Heading from '../components/atoms/Heading/Heading';
-import Input from '../components/atoms/Input/Input';
-import Button from '../components/atoms/Button/Button';
-
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { Formik, Form } from "formik";
+import AuthTemplate from "../templates/AuthTemplate";
+import { Link, Redirect } from "react-router-dom";
+import Heading from "../components/atoms/Heading/Heading";
+import Input from "../components/atoms/Input/Input";
+import Button from "../components/atoms/Button/Button";
+import { register } from "../actions";
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -30,43 +31,59 @@ const StyledLink = styled(Link)`
   margin: 20px 0 50px;
 `;
 
-const RegisterPage = () => (
+const RegisterPage = ({ register, authorized }) => (
   <AuthTemplate>
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={{ username: "", password: "" }}
       onSubmit={({ username, password }) => {
-        console.log('hello');
+        register(username, password);
       }}
     >
-      {({ handleChange, handleBlur, values }) => (
-        <>
-          <Heading>Sign up</Heading>
-          <StyledForm>
-            <StyledInput
-              type="text"
-              name="username"
-              placeholder="Login"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.title}
-            />
-            <StyledInput
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.title}
-            />
-            <Button activeColor="notes" type="submit">
-              register
-            </Button>
-          </StyledForm>
-          <StyledLink to="/login">I want to log in!</StyledLink>
-        </>
-      )}
+      {({ handleChange, handleBlur, values }) => {
+        if (authorized) {
+          return <Redirect to="/" />;
+        }
+        return (
+          <>
+            <Heading>Sign up</Heading>
+            <StyledForm>
+              <StyledInput
+                type="text"
+                name="username"
+                placeholder="Login"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.title}
+              />
+              <StyledInput
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.title}
+              />
+              <Button activeColor="notes" type="submit">
+                register
+              </Button>
+            </StyledForm>
+            <StyledLink to="/login">I want to log in!</StyledLink>
+          </>
+        );
+      }}
     </Formik>
   </AuthTemplate>
 );
 
-export default RegisterPage;
+const mapStateToProps = ({ authorized }) => ({
+  authorized
+});
+
+const mapDispatchToProps = dispatch => ({
+  register: (username, password) => dispatch(register(username, password))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterPage);

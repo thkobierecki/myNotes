@@ -1,15 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Formik, Form } from 'formik';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import AuthTemplate from '../templates/AuthTemplate';
-import { routes } from '../Routes/index';
-import Heading from '../components/atoms/Heading/Heading';
-import Input from '../components/atoms/Input/Input';
-import Button from '../components/atoms/Button/Button';
-import { authenticate as authenticateAction } from '../actions';
-
+import React from "react";
+import styled from "styled-components";
+import { Formik, Form } from "formik";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import AuthTemplate from "../templates/AuthTemplate";
+import { routes } from "../Routes/index";
+import Heading from "../components/atoms/Heading/Heading";
+import Input from "../components/atoms/Input/Input";
+import Button from "../components/atoms/Button/Button";
+import { authenticate as authenticateAction } from "../actions";
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -33,16 +32,16 @@ const StyledLink = styled(Link)`
   margin: 20px 0 50px;
 `;
 
-const LoginPage = ({ userID, authenticate }) => (
+const LoginPage = ({ authenticate, authorized }) => (
   <AuthTemplate>
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={{ username: "", password: "" }}
       onSubmit={({ username, password }) => {
         authenticate(username, password);
       }}
     >
       {({ handleChange, handleBlur, values }) => {
-        if (userID) {
+        if (authorized) {
           return <Redirect to="/" />;
         }
         return (
@@ -66,7 +65,7 @@ const LoginPage = ({ userID, authenticate }) => (
                 value={values.title}
               />
               <Button activeColor="notes" type="submit">
-                  sign in
+                sign in
               </Button>
             </StyledForm>
             <StyledLink to="/register">I want my account!</StyledLink>
@@ -76,12 +75,17 @@ const LoginPage = ({ userID, authenticate }) => (
     </Formik>
   </AuthTemplate>
 );
-const mapStateToProps = ({ userID = null }) => ({
+const mapStateToProps = ({ userID = null, authorized }) => ({
   userID,
+  authorized
 });
 
 const mapDispatchToProps = dispatch => ({
-  authenticate: (username, password) => dispatch(authenticateAction(username, password)),
+  authenticate: (username, password) =>
+    dispatch(authenticateAction(username, password))
 });
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);

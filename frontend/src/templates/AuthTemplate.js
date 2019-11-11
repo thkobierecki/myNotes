@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import Heading from '../components/atoms/Heading/Heading';
-import logoImg from '../assest/icons/logo.svg';
+import React from "react";
+import styled from "styled-components";
+import Heading from "../components/atoms/Heading/Heading";
+import logoImg from "../assest/icons/logo.svg";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -32,8 +32,7 @@ const StyledAuthCard = styled.div`
 
 const AuthTemplate = ({ children }) => (
   <StyledWrapper>
-    <StyledLogo src={logoImg} alt="" />
-    <Heading>Your new favorite online notes experience</Heading>
+    {/* <Heading>Your new favorite online notes experience</Heading> */}
     <StyledAuthCard>{children}</StyledAuthCard>
   </StyledWrapper>
 );

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ButtonIcon = styled.button`
   display: block;
@@ -11,7 +11,7 @@ const ButtonIcon = styled.button`
   background-size: 40%;
   border: none;
 
-  &.active{
+  &.active {
     background-color: white;
   }
 `;

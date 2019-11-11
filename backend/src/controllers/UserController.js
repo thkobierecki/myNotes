@@ -12,6 +12,7 @@ const user = {
 
       req.logIn(user, function(err) {
         if (err) { return next(err); }
+       
         return res.send(user);
       });
 

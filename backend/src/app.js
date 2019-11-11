@@ -26,11 +26,13 @@ passport.deserializeUser(User.deserializeUser());
 //     saveUninitialized: true
 //   })
 // );
+const URI = process.env.ATLAS_URI;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 // MongoDB database
-const uri = process.env.ATLAS_URI;
+const uri = URI;
 
 mongoose.connect(uri, {
   useCreateIndex: true,

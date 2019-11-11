@@ -54,16 +54,25 @@ const StyledButtonIcon = styled(ButtonIcon)`
 `;
 const GridTemplate = ({ children, pageContext }) => {
   const [visible, setVisible] = useState(false);
-
+  const [searchV, setTitle] = useState("");
   const toggleNewItemBar = () => {
     setVisible(!visible);
+  };
+
+  const handleChange = e => {
+    setTitle(e.target.value);
   };
 
   return (
     <UserTemplate>
       <StyledWrapper>
         <StyledPageHeader>
-          <Input search placeholder="Search" />
+          <Input
+            search
+            value={searchV}
+            onChange={e => handleChange(e)}
+            placeholder="Search"
+          />
           <StyledHeading big as="h1">
             {pageContext}
           </StyledHeading>
