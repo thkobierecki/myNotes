@@ -5,22 +5,24 @@ import GridTemplates from "../templates/GridTemplates";
 import Card from "../components/molecules/Card/Card";
 import { fetchItems } from "../actions";
 
-const Note = ({ fetchNotes, notes }) => {
+const Note = ({ fetchNotes, notes, filterVal }) => {
   useEffect(() => {
     fetchNotes();
   }, []);
 
   return (
     <GridTemplates>
-      {notes.map(({ title, content, created, _id: id }) => (
-        <Card
-          id={id}
-          title={title}
-          content={content}
-          created={created}
-          key={id}
-        />
-      ))}
+      {notes
+        .filter(item => item.title.includes(filterVal))
+        .map(({ title, content, created, _id: id }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            created={created}
+            key={id}
+          />
+        ))}
     </GridTemplates>
   );
 };
@@ -40,8 +42,8 @@ Note.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { notes } = state;
-  return { notes };
+  const { notes, filterVal } = state;
+  return { notes, filterVal };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import GlobalStyle from '../theme/GlobalStyle';
-import theme from '../theme/mainTheme';
-import PageContext from '../contex';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { ThemeProvider } from "styled-components";
+import { withRouter } from "react-router-dom";
+import GlobalStyle from "../theme/GlobalStyle";
+import theme from "../theme/mainTheme";
+import PageContext from "../contex";
 
 class MainTemplate extends Component {
-  state={
-    pageType: 'notes',
-  }
+  state = {
+    pageType: "notes"
+  };
 
   componentDidMount() {
     this.setCurrentPage();
@@ -19,20 +19,18 @@ class MainTemplate extends Component {
     this.setCurrentPage(prevState);
   }
 
-  setCurrentPage=(prevState = '') => {
-    const pageTypes = ['notes', 'twitters', 'articles'];
+  setCurrentPage = (prevState = "") => {
+    const pageTypes = ["notes", "twitters", "articles"];
     const {
-      location: { pathname },
+      location: { pathname }
     } = this.props;
 
     const [currentPage] = pageTypes.filter(page => pathname.includes(page));
 
     if (prevState.pageType !== currentPage) {
       this.setState({ pageType: currentPage });
-      console.log(this.state);
     }
-  }
-
+  };
 
   render() {
     const { children } = this.props;
@@ -52,8 +50,8 @@ class MainTemplate extends Component {
 MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,
   location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default withRouter(MainTemplate);

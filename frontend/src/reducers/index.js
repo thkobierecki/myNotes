@@ -5,17 +5,24 @@ import {
   REGISTER_SUCCESS,
   FETCH_REQUEST,
   LOGOUT_SUCCESS,
+  FILTER_NOTES,
   FETCH_SUCCESS
 } from "../actions";
 
 const initialState = {
   userID: "",
   isLoading: false,
-  authorized: false
+  authorized: false,
+  filterVal: ""
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FILTER_NOTES:
+      return {
+        ...state,
+        filterVal: action.filter
+      };
     case FETCH_REQUEST:
       return {
         ...state,

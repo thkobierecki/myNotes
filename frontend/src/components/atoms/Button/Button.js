@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
   display: flex;
@@ -12,13 +12,16 @@ const Button = styled.button`
   height: 47px;
   border: none;
   border-radius: 50px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 600;
   font-size: 16px;
   text-transform: uppercase;
-
-  ${({ secondary }) => secondary
-    && css`
+  :focus {
+    outline: none;
+  }
+  ${({ secondary }) =>
+    secondary &&
+    css`
       background-color: #e6e6e6;
       width: 105px;
       height: 30px;

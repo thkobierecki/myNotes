@@ -5,22 +5,24 @@ import GridTemplates from "../templates/GridTemplates";
 import Card from "../components/molecules/Card/Card";
 import { fetchItems } from "../actions";
 
-const Articles = ({ fetchArticles, articles }) => {
+const Articles = ({ fetchArticles, articles, filterVal }) => {
   useEffect(() => {
     fetchArticles();
   }, []);
 
   return (
     <GridTemplates>
-      {articles.map(({ title, content, articleUrl, _id: id }) => (
-        <Card
-          id={id}
-          title={title}
-          content={content}
-          articleUrl={articleUrl}
-          key={id}
-        />
-      ))}
+      {articles
+        .filter(item => item.title.includes(filterVal))
+        .map(({ title, content, articleUrl, _id: id }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            articleUrl={articleUrl}
+            key={id}
+          />
+        ))}
     </GridTemplates>
   );
 };
@@ -42,8 +44,8 @@ Articles.defaultProps = {
 };
 
 const mapeStateToProps = state => {
-  const { articles } = state;
-  return { articles };
+  const { articles, filterVal } = state;
+  return { articles, filterVal };
 };
 
 const mapeDispatchToProps = dispatch => ({

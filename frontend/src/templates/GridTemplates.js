@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import UserTemplate from "./UserTemplate";
 import Input from "../components/atoms/Input/Input";
@@ -9,6 +10,7 @@ import withContext from "../hoc/withContex";
 import ButtonIcon from "../components/atoms/ButtonIcon/ButtonIcon";
 import plusIcon from "../assest/icons/plus.svg";
 import NewItemBar from "../components/organisms/NewItemBar/NewItemBar";
+import { filterArray } from "../actions";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -52,7 +54,7 @@ const StyledButtonIcon = styled(ButtonIcon)`
   background-size: 40%;
   z-index: 10000;
 `;
-const GridTemplate = ({ children, pageContext }) => {
+const GridTemplate = ({ children, pageContext, filterArray }) => {
   const [visible, setVisible] = useState(false);
   const [searchV, setTitle] = useState("");
   const toggleNewItemBar = () => {
@@ -61,6 +63,7 @@ const GridTemplate = ({ children, pageContext }) => {
 
   const handleChange = e => {
     setTitle(e.target.value);
+    filterArray(e.target.value);
   };
 
   return (
@@ -98,4 +101,11 @@ GridTemplate.propTypes = {
 GridTemplate.defaultProps = {
   pageContext: "notes"
 };
-export default withContext(GridTemplate);
+
+const mapDispatchToProps = dispatch => ({
+  filterArray: filter => dispatch(filterArray(filter))
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(withContext(GridTemplate));

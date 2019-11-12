@@ -24,6 +24,12 @@ export const FETCH_REQUEST = "FETCH_REQUEST";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 
+export const FILTER_NOTES = "FILTER_NOTES";
+
+export const filterArray = filter => {
+  return { type: FILTER_NOTES, filter };
+};
+
 export const authenticate = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
 

@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import magnifierIcon from '../../../assest/magnifier.svg';
+import styled, { css } from "styled-components";
+import magnifierIcon from "../../../assest/magnifier.svg";
 
 const Input = styled.input`
   padding: 15px 30px;
@@ -8,15 +8,18 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.grey100};
   border: none;
   border-radius: 50px;
-
+  :focus {
+    outline: none;
+  }
   ::placeholder {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: ${({ theme }) => theme.grey300};
   }
 
-  ${({ search }) => search
-    && css`
+  ${({ search }) =>
+    search &&
+    css`
       padding: 10px 20px 10px 40px;
       font-size: ${({ theme }) => theme.fontSize.xs};
       background-image: url(${magnifierIcon});

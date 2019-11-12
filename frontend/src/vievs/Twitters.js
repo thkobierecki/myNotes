@@ -5,22 +5,24 @@ import GridTemplates from "../templates/GridTemplates";
 import Card from "../components/molecules/Card/Card";
 import { fetchItems } from "../actions";
 
-const Twitters = ({ fetchTwitters, twitters }) => {
+const Twitters = ({ fetchTwitters, twitters, filterVal }) => {
   useEffect(() => {
     fetchTwitters();
   }, []);
 
   return (
     <GridTemplates>
-      {twitters.map(({ title, content, twitterName, _id: id }) => (
-        <Card
-          id={id}
-          title={title}
-          content={content}
-          twitterName={twitterName}
-          key={id}
-        />
-      ))}
+      {twitters
+        .filter(item => item.title.includes(filterVal))
+        .map(({ title, content, twitterName, _id: id }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            twitterName={twitterName}
+            key={id}
+          />
+        ))}
     </GridTemplates>
   );
 };
@@ -41,8 +43,8 @@ Twitters.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { twitters } = state;
-  return { twitters };
+  const { twitters, filterVal } = state;
+  return { twitters, filterVal };
 };
 
 const mapDispatchToProps = dispatch => ({
